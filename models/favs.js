@@ -7,6 +7,6 @@ module.exports = (sequelize, DataTypes) => {
         productid: {
             type: DataTypes.INTEGER,
             allowNull: false
-        },
+        }
     })
   }

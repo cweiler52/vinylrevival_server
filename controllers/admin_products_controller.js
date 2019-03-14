@@ -1,10 +1,10 @@
 const express  = require('express');
 const router = express.Router();
-const Product = require('../db').import('../models/products');
+const db = require('../db').db;
 
 /* ALLOWS ADMIN TO CREATE A PRODUCT ... */
 router.post('/products/add', (req, res) => { 
-    Product.create({
+    db.Products.create({
         artist: req.body.artist,
         album:  req.body.album,
         cover:  req.body.cover,
@@ -25,7 +25,7 @@ router.post('/products/add', (req, res) => {
 
 /* GETS ALL PRODUCTS TO DISPLAY IN LIST /// ORDER BY later */
 router.get('/products', (req, res) => {
-    Product.findAll({
+    db.Products.findAll({
         order: [
             ['album', 'ASC']
         ]
@@ -41,8 +41,11 @@ router.get('/products', (req, res) => {
 
 /* GETS ONE PRODUCT TO DISPLAY IN ADMIN EDIT VIEW */
 router.get('/products/:id', (req, res) => {
-    Product.findOne({
-        where: { id: req.params.id }
+    db.Products.findOne({
+        where: { id: req.params.id },
+        include: [
+            { model: db.Comments }
+        ]
     }).then( 
         findAllSuccess = (data) => {
             res.status(200).json(data);
@@ -55,7 +58,7 @@ router.get('/products/:id', (req, res) => {
 
 /* ALLOWS ADMIN TO VIEW DETAILS OF ONE PRODUCT BY ID */
 router.delete('/products/:id', (req, res) => {
-    Product.destroy({
+    db.Products.destroy({
         where: { id: req.params.id }
     }).then(
         deleteShowSuccess = (productid) => {
@@ -76,7 +79,7 @@ router.put('/products/:id', (req, res) => {
         prod_price  = req.body.price,
         prod_desc   = req.body.desc;
 
-    Product.update({
+    db.Products.update({
         artist: prod_artist,
         album: prod_album,
         cover: prod_cover,
