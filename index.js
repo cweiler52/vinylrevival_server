@@ -13,6 +13,8 @@ app.use(bodyParser.json());
 /* EXPOSED ROUTES */
 app.use('/api', require('./controllers/user_controller'));
 app.use('/api', require('./controllers/product_controller'));
+app.use('/api', require('./controllers/favs_controller'));
+app.use('/api', require('./controllers/comments_controller'));
 
 /* PROTECTED ROUTES */
 app.use(require('./middleware/validate-session'))

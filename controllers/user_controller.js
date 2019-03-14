@@ -2,11 +2,11 @@ const express  = require('express');
 const router = express.Router();
 var bcryptjs = require('bcryptjs');
 var jwt = require('jsonwebtoken');
-const User = require('../db').import('../models/users');
+const Users = require('../db').import('../models/users');
 
 /* ALLOWS A NEW USER TO BE CREATED WITH A USERNAME & PASSWORD */
 router.post('/signup', (req, res) => {
-    User.create({
+    Users.create({
         name:   req.body.name,
         email:  req.body.email,
         passwordhash: bcryptjs.hashSync(req.body.password, 10)
@@ -37,7 +37,7 @@ router.post('/signup', (req, res) => {
 
 /* ALLOWS LOG IN WITH AN EXISTING USER */
 router.post('/login', (req, res) => {
-    User.findOne({ where: { email: req.body.email }})
+    Users.findOne({ where: { email: req.body.email }})
     .then(
         user => {
             if (user) {
