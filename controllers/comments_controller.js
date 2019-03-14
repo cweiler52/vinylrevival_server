@@ -1,11 +1,11 @@
 const express  = require('express');
 const router = express.Router();
-const Comments = require('../db').import('../models/comments');
-//const db = require('../db').db;
+// const Comments = require('../db').import('../models/comments');
+const db = require('../db').db;
 
 /* GETS ALL PRODUCTS TO DISPLAY IN LIST /// ORDER BY later */
 router.get('/comments', (req, res) => {
-    Comments.findAll( // ,
+    db.Comments.findAll( // ,
         // include: [
         //     {
         //         model: db.Favs,

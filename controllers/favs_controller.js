@@ -1,11 +1,11 @@
 const express  = require('express');
 const router = express.Router();
-const Favs = require('../db').import('../models/favs');
-//const db = require('../db').db;
+// const Favs = require('../db').import('../models/favs');
+const db = require('../db').db;
 
 /* GETS ALL PRODUCTS TO DISPLAY IN LIST /// ORDER BY later */
 router.get('/favs', (req, res) => {
-    Favs.findAll( // ,
+    db.Favs.findAll( // ,
         // include: [
         //     {
         //         model: db.Favs,
