@@ -27,7 +27,11 @@ router.get('/products/:id', (req, res) => {
         where: { id: req.params.id },
         include: [
             { model: db.Favs },
-            { model: db.Comments }
+            { model: db.Comments,
+                include: [
+                    { model: db.Users }
+                ] 
+            }
         ]
     }).then( 
         findAllSuccess = (data) => {
