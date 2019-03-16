@@ -30,7 +30,7 @@ router.get('/products/:id', (req, res) => {
             { model: db.Comments,
                 include: [
                     { model: db.Users }
-                ] 
+                ]
             }
         ]
     }).then( 
