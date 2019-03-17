@@ -9,9 +9,26 @@ router.get('/favs/:id', (req, res) => {
         where: { userId: req.params.id },
         include: [
             {
-                model: db.Products 
+                model: db.Products
             }
         ]
+    }).then( 
+        findAllSuccess = (data) => {
+            res.status(200).json(data);
+        },
+        findAllError = (err) => {
+            res.status(500).send(err.message);
+        }
+    );
+})
+
+/* GETS ALL FAVS TO DISPLAY PER USER /// ORDER BY later */
+router.post('/favs/save', (req, res) => {
+    db.Favs.create({
+        userid: req.body.user_id,
+        productid: req.body.product_id,
+        userId: req.body.user_id,
+        productId: req.body.product_id
     }).then( 
         findAllSuccess = (data) => {
             res.status(200).json(data);
