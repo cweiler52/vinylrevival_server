@@ -34,7 +34,10 @@ router.post('/favs/save', (req, res) => {
             res.status(200).json(data);
         },
         findAllError = (err) => {
-            res.status(500).send(err.message);
+            res.status(501).json({ 
+                status: 501,
+                message: err.name
+            })
         }
     );
 })
