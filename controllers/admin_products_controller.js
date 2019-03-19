@@ -8,8 +8,9 @@ router.post('/products/add', (req, res) => {
         artist: req.body.artist,
         album:  req.body.album,
         cover:  req.body.cover,
-        price:  req.body.price,
-        desc:   req.body.desc
+        desc:   req.body.desc,
+        genre:  req.body.genre,
+        price:  req.body.price
     })
     .then(
         createSuccess = (data) => {    
@@ -76,15 +77,17 @@ router.put('/products/:id', (req, res) => {
         prod_artist = req.body.artist,
         prod_album  = req.body.album,
         prod_cover  = req.body.cover,
-        prod_price  = req.body.price,
-        prod_desc   = req.body.desc;
+        prod_desc   = req.body.desc,
+        prod_genre  = req.body.genre,
+        prod_price  = req.body.price;
 
     db.Products.update({
         artist: prod_artist,
         album: prod_album,
         cover: prod_cover,
-        price: prod_price,
-        desc: prod_desc
+        desc: prod_desc,
+        genre: prod_genre,
+        price: prod_price
     },
     {where: {id: prod_id}}
     ).then(

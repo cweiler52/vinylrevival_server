@@ -2,7 +2,6 @@ const express  = require('express');
 const router = express.Router();
 var bcryptjs = require('bcryptjs');
 var jwt = require('jsonwebtoken');
-// const Users = require('../db').import('../models/users');
 const db = require('../db').db;
 
 /* GETS ALL FAVS TO DISPLAY PER USER /// ORDER BY later */
