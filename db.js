@@ -13,9 +13,6 @@ sequelize.authenticate().then(
     }
 );
 
-// module.exports = sequelize;
-
-
 // Associations
 const db = {};
 db.sequelize = sequelize;

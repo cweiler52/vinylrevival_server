@@ -63,4 +63,21 @@ router.get('/products/:id', (req, res) => {
     );
 })
 
+/* GETS ALL PRODUCTS TO DISPLAY IN LIST /// ORDER BY later */
+router.get('/products/suggestions/:g', (req, res) => {
+    db.Products.findAll({
+        where: { genre: req.params.g },
+        include: [
+            { model: db.Favs }
+        ]
+    }).then( 
+        findAllSuccess = (data) => {
+            res.status(200).json(data);
+        },
+        findAllError = (err) => {
+            res.status(500).send(err.message);
+        }
+    );
+})
+
 module.exports = router;

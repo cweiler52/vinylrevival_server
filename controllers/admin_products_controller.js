@@ -15,9 +15,7 @@ router.post('/products/add', (req, res) => {
     .then(
         createSuccess = (data) => {    
             res.status(200).json({
-                outcome: 1,
-                data: data,
-                message: 'product was created.'
+                data: data
             })
         },
         createError = err => res.status(500).send(err.message)
@@ -63,7 +61,10 @@ router.delete('/products/:id', (req, res) => {
         where: { id: req.params.id }
     }).then(
         deleteShowSuccess = (productid) => {
-            res.status(200).send("product was removed");
+            res.status(200).json({
+                data: data,
+                message: 'product was removed'
+            });
         },
         deleteShowError = (err) => {
             res.status(500).send(err.message);
@@ -91,10 +92,15 @@ router.put('/products/:id', (req, res) => {
     },
     {where: {id: prod_id}}
     ).then(
-        function updateSuccess() {
-            res.status(200).send("product was updated");;
+        updateSuccess = () => {    
+            res.status(200).json({
+                data: {
+                    outcome: 1,
+                    message: 'updated'
+                }
+            })
         },
-        function updateError(err) {
+        updateError = (err) => {
             res.status(500).send(err.message);
         }
     )
