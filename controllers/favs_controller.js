@@ -8,9 +8,8 @@ router.get('/favs/:id', (req, res) => {
     db.Favs.findAll({
         where: { userId: req.params.id },
         include: [
-            {
-                model: db.Products
-            }
+            { model: db.Products }
+            
         ]
     }).then( 
         findAllSuccess = (data) => {
