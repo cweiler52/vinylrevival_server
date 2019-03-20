@@ -64,12 +64,19 @@ router.get('/products/:id', (req, res) => {
 })
 
 /* GETS ALL PRODUCTS TO DISPLAY IN LIST /// ORDER BY later */
-router.get('/products/suggestions/:g', (req, res) => {
+router.get('/products/suggestions/:id/:genre', (req, res) => {
     db.Products.findAll({
-        where: { genre: req.params.g },
-        include: [
-            { model: db.Favs }
-        ]
+        where: { 
+            genre: req.params.genre, 
+            id: { [db.sequelize.Op.ne]: req.params.id } 
+        },
+        attributes: { 
+            include: [[db.sequelize.fn("COUNT", db.sequelize.col("favs.id")), "favCount"]] 
+        },
+        include: [{
+            model: db.Favs, attributes: []
+        }],
+        group: ['products.id']
     }).then( 
         findAllSuccess = (data) => {
             res.status(200).json(data);

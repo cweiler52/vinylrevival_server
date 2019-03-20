@@ -62,7 +62,7 @@ router.delete('/products/:id', (req, res) => {
     }).then(
         deleteShowSuccess = (productid) => {
             res.status(200).json({
-                data: data,
+                outcome: 1,
                 message: 'product was removed'
             });
         },
