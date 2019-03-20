@@ -1,18 +1,20 @@
 const express  = require('express');
 const router = express.Router();
-// const Comments = require('../db').import('../models/comments');
 const db = require('../db').db;
 
-/* GETS ALL PRODUCTS TO DISPLAY IN LIST /// ORDER BY later */
-router.get('/comments', (req, res) => {
-    db.Comments.findAll( // ,
-        // include: [
-        //     {
-        //         model: db.Favs,
-        //         where: { productId: db.Favs.Id } 
-        //     }
-        // ]
-    ).then( 
+/* GETS ALL COMMENTS FROM THE ALBUM TO DISPLAY IN LIST /// ORDER BY later */
+router.get('/comments/:pid', (req, res) => {
+    db.Comments.findAll({
+        where: { productId: req.params.pid },
+        include: [
+            {
+                model: db.Products, attributes: [] 
+            }
+        ],
+        order: [
+            ['createdAt', 'DESC']
+        ]
+    }).then( 
         findAllSuccess = (data) => {
             res.status(200).json(data);
         },

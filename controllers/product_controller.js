@@ -36,26 +36,6 @@ router.get('/products/:id', (req, res) => {
     }).then( 
         findAllSuccess = (data) => {
             res.status(200).json(data);
-            // let eachfav = [];
-            // for(let a of data.favs) {
-            //     record = {
-            //         "id": a.product.id,
-            //         "artist": a.product.artist,
-            //         "album": a.product.album,
-            //         "cover": a.product.cover
-            //     }
-            //     eachfav.push(record);
-            // }
-            // res.status(200).json({
-            //     user: {
-            //         "id": data.id,
-            //         "name": data.name,
-            //         "email": data.email,
-            //         "roleid": data.roleid,
-            //         "image": data.image
-            //     },
-            //     favs: eachfav
-            // });
         },
         findAllError = (err) => {
             res.status(500).send(err.message);
@@ -63,7 +43,7 @@ router.get('/products/:id', (req, res) => {
     );
 })
 
-/* GETS ALL PRODUCTS TO DISPLAY IN LIST /// ORDER BY later */
+/* GETS ALL PRODUCTS THAT MATCH THE genre EXCEPT ITSELF /// ORDER BY later */
 router.get('/products/suggestions/:id/:genre', (req, res) => {
     db.Products.findAll({
         where: { 
