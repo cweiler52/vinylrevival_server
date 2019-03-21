@@ -42,7 +42,7 @@ router.post('/favs/save', (req, res) => {
 })
 
 /* REOMVES THE FAV RECORD BASED ON userId & productId */
-router.post('/favs/remove', (req, res) => {
+router.delete('/favs/remove', (req, res) => {
     db.Favs.destroy({
         where: { userId: req.body.user_id, productId: req.body.product_id }
     }).then( 
