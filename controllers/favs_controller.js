@@ -41,4 +41,21 @@ router.post('/favs/save', (req, res) => {
     );
 })
 
+/* REOMVES THE FAV RECORD BASED ON userId & productId */
+router.post('/favs/remove', (req, res) => {
+    db.Favs.destroy({
+        where: { userId: req.body.user_id, productId: req.body.product_id }
+    }).then( 
+        findAllSuccess = (data) => {
+            res.status(200).json(data);
+        },
+        findAllError = (err) => {
+            res.status(501).json({ 
+                status: 501,
+                message: err.name
+            })
+        }
+    );
+})
+
 module.exports = router;
