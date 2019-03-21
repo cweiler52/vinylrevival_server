@@ -1,6 +1,5 @@
 const express  = require('express');
 const router = express.Router();
-// const Favs = require('../db').import('../models/favs');
 const db = require('../db').db;
 
 /* GETS ALL FAVS TO DISPLAY PER USER /// ORDER BY later */
@@ -9,7 +8,6 @@ router.get('/favs/:id', (req, res) => {
         where: { userId: req.params.id },
         include: [
             { model: db.Products }
-            
         ]
     }).then( 
         findAllSuccess = (data) => {
@@ -29,30 +27,30 @@ router.post('/favs/save', (req, res) => {
         userId: req.body.user_id,
         productId: req.body.product_id
     }).then( 
-        findAllSuccess = (data) => {
+        createSuccess = (data) => {
             res.status(200).json(data);
         },
-        findAllError = (err) => {
+        createError = (err) => {
             res.status(501).json({ 
                 status: 501,
-                message: err.name
+                message: err.message
             })
         }
     );
 })
 
-/* REOMVES THE FAV RECORD BASED ON userId & productId */
-router.post('/favs/remove', (req, res) => {
+/* REMOVES THE FAV RECORD BASED ON userId & productId */
+router.delete('/favs/remove', (req, res) => {
     db.Favs.destroy({
         where: { userId: req.body.user_id, productId: req.body.product_id }
     }).then( 
-        findAllSuccess = (data) => {
+        deleteSuccess = (data) => {
             res.status(200).json(data);
         },
-        findAllError = (err) => {
+        deleteError = (err) => {
             res.status(501).json({ 
                 status: 501,
-                message: err.name
+                message: err.message
             })
         }
     );

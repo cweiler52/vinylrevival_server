@@ -72,7 +72,7 @@ router.delete('/products/:id', (req, res) => {
     );
 });
 
-/* ALLOWS ADMIN TO UPDATE DETAILS OF ONE PRODUCT BY ID */ 
+/* ALLOWS ADMIN TO UPDATE DETAILS OF ONE PRODUCT BY id */ 
 router.put('/products/:id', (req, res) => {
     let prod_id     = req.params.id,
         prod_artist = req.body.artist,
@@ -101,7 +101,7 @@ router.put('/products/:id', (req, res) => {
             })
         },
         updateError = (err) => {
-            res.status(500).send(err.message);
+            res.status(500).json(err.message);
         }
     )
 });
