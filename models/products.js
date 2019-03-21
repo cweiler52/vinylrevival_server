@@ -14,6 +14,9 @@ module.exports = (sequelize, DataTypes) => {
         },
         desc: {
             type: DataTypes.TEXT
+        },
+        genre: {
+          type: DataTypes.STRING
         }
     })
   }

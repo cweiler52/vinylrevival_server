@@ -1,5 +1,6 @@
 var jwt = require('jsonwebtoken');
-var User = require('../db').import('../models/users');
+// var User = require('../db').import('../models/users');
+var db = require('../db').db;
 
 module.exports = function (req, res, next) {
     if(req.method == 'OPTIONS'){
@@ -11,7 +12,7 @@ module.exports = function (req, res, next) {
         }else{
             jwt.verify(sessionToken, process.env.JWT_SECRET, (err, decoded) => {
                 if(decoded){
-                    User.findOne({ where: {id: decoded.id}})
+                    db.Users.findOne({ where: {id: decoded.id}})
                         .then(user => {
                             req.user = user;
                             next();
