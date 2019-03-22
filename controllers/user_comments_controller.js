@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require('../db').db;
 
 /* USER CREATED COMMENT FOR THE ALBUM TO DISPLAY IN LIST */
-router.post('/comments/add', (req, res) => {
+router.post('/comment/add', (req, res) => {
     db.Comments.create({
         userid: req.body.user_id,
         productid: req.body.product_id,
@@ -20,7 +20,7 @@ router.post('/comments/add', (req, res) => {
 })
 
 /* ALLOWS USER TO UPDATE ONE OF THEIR COMMENTS */ 
-router.put('/comments/:id', (req, res) => {
+router.put('/comment/:id', (req, res) => {
     let comment_id = req.params.id,
         commentTxt = req.body.comment;
 
@@ -39,7 +39,7 @@ router.put('/comments/:id', (req, res) => {
 });
 
 /* ALLOWS USER TO DELETE THEIR COMMENT THEY PUT ON A PRODUCT */
-router.delete('/comments/:id', (req, res) => {
+router.delete('/comment/:id', (req, res) => {
     db.Comments.destroy({
         where: { id: req.params.id }
     }).then(
