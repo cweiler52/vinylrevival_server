@@ -5,7 +5,7 @@ var jwt = require('jsonwebtoken');
 const db = require('../db').db;
 
 /* GETS ONE USER TO DISPLAY PROFILE BASED ON userid */
-router.get('/user/:id', (req, res) => {
+router.get('/profile/:id', (req, res) => {
     db.Users.findOne({
         where: { id: req.params.id },
         include: [
