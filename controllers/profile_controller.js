@@ -48,7 +48,7 @@ router.get('/user/:id', (req, res) => {
 })
 
 /* ALLOWS USER TO UPDATE THEIR PROFILE BASED ON USER id */ 
-router.put('/user/:id', (req, res) => {
+router.put('/profile/:id', (req, res) => {
     let user_id    = req.params.id,
         user_name  = req.body.name,
         user_email = req.body.email,
@@ -79,7 +79,7 @@ router.put('/user/:id', (req, res) => {
 });
 
 /* ALLOWS USER TO DELETE THEIR PROFILE BASED ON USER id */
-router.delete('/user/:id', (req, res) => {
+router.delete('/profile/:id', (req, res) => {
     db.Users.destroy({
         where: { id: req.params.id }
     }).then(
