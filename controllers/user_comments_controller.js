@@ -29,7 +29,7 @@ router.put('/comment/:id', (req, res) => {
     },
     { where: {id: comment_id} }
     ).then(
-        updateSuccess = () => {    
+        updateSuccess = (data) => {    
             res.status(200).json(data);
         },
         updateError = (err) => {

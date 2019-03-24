@@ -7,9 +7,8 @@ router.get('/comments/:pid', (req, res) => {
     db.Comments.findAll({
         where: { productId: req.params.pid },
         include: [
-            {
-                model: db.Products, attributes: [] 
-            }
+            { model: db.Products, attributes: [] },
+            { model: db.Users }
         ],
         order: [
             ['createdAt', 'DESC']
