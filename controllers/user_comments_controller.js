@@ -13,7 +13,7 @@ router.post('/comment/add', (req, res) => {
     })
     .then(
         createSuccess = (data) => {    
-            res.status(200).json({data});
+            res.status(200).json(data);
         },
         createError = err => res.status(500).send(err.message)
     )
@@ -29,7 +29,7 @@ router.put('/comment/:id', (req, res) => {
     },
     { where: {id: comment_id} }
     ).then(
-        updateSuccess = () => {    
+        updateSuccess = (data) => {    
             res.status(200).json(data);
         },
         updateError = (err) => {

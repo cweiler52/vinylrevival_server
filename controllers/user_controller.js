@@ -9,6 +9,7 @@ router.post('/signup', (req, res) => {
     db.Users.create({
         name:   req.body.name,
         email:  req.body.email,
+        image:  req.body.image,
         passwordhash: bcryptjs.hashSync(req.body.password, 10)
     })
     .then(
@@ -27,10 +28,9 @@ router.post('/signup', (req, res) => {
                 })
             }
         },
-        createError = err => res.status(500).send({ 
+        createError = err => res.status(500).json({ 
             status: 500,
-            message: err,
-            error: err
+            message: err.message
         })
     )
 });
