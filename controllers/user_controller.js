@@ -9,6 +9,7 @@ router.post('/signup', (req, res) => {
     db.Users.create({
         name:   req.body.name,
         email:  req.body.email,
+        image:  req.body.image,
         passwordhash: bcryptjs.hashSync(req.body.password, 10)
     })
     .then(

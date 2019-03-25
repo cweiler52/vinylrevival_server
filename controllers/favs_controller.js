@@ -14,44 +14,58 @@ router.get('/favs/:id', (req, res) => {
             res.status(200).json(data);
         },
         findAllError = (err) => {
-            res.status(500).send(err.message);
+            res.status(500).send(err);
         }
     );
 })
 
-/* GETS ALL FAVS TO DISPLAY PER USER /// ORDER BY later */
-router.post('/favs/save', (req, res) => {
-    db.Favs.create({
-        userid:     req.body.user_id,
-        productid:  req.body.product_id,
-        userId:     req.body.user_id,
-        productId:  req.body.product_id
-    }).then( 
-        createSuccess = (data) => {
-            res.status(200).json(data);
+/* CHECKS TO SEE IF USER IS ALREADY IN FAVS TABLE FOR THIS PRODUCT - HANDLES ADDING OR REMOVING FROM TABLE UPON RESULT */
+router.post('/favs/handle', (req, res) => {
+    db.Favs.findOne(
+        { where: { userId: req.body.user_id, productId: req.body.product_id }}
+    ).then(
+        data => {
+            // console.log(data)
+            if(data === null) {
+                // console.log('no record found - add');
+                db.Favs.create({
+                    userid:     req.body.user_id,
+                    productid:  req.body.product_id,
+                    userId:     req.body.user_id,
+                    productId:  req.body.product_id
+                }).then( 
+                    createSuccess = (data) => {
+                        res.status(200).json({
+                            outcome: 1,
+                            message: 'added fav'
+                        });
+                    },
+                    createError = (err) => {
+                        res.status(501).json(err);
+                    }
+                );
+            }else{
+                // console.log('record found - remove instead');
+                db.Favs.destroy({
+                    where: { userId: req.body.user_id, productId: req.body.product_id }
+                }).then( 
+                    deleteSuccess = (data) => {
+                        res.status(200).json({
+                            outcome: 0,
+                            message: 'removed fav'
+                        });
+                    },
+                    deleteError = (err) => {
+                        res.status(501).json(err);
+                    }
+                );
+            }
         },
-        createError = (err) => {
-            // res.status(501).json({ 
-            //     status: 501,
-            //     cmessage: err.message
-            // })
-            res.status(501).json(err);
-        }
-    );
-})
-
-/* REMOVES THE FAV RECORD BASED ON userId & productId */
-router.delete('/favs/:uid/:pid', (req, res) => {
-    db.Favs.destroy({
-        where: { userId: req.params.uid, productId: req.params.pid }
-    }).then( 
-        deleteSuccess = (data) => {
-            res.status(200).json(data);
-        },
-        deleteError = (err) => {
-            res.status(501).json(err);
-        }
-    );
+        err => res.status(501).json({ 
+            status: 501,
+            message: 'Error in process of handling a fav click'
+        })
+    )
 })
 
 module.exports = router;
