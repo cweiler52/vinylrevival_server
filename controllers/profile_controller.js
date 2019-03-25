@@ -52,7 +52,7 @@ router.put('/user/:id', (req, res) => {
     let user_id    = req.params.id,
         user_name  = req.body.name,
         user_email = req.body.email,
-        user_image = req.body.cover;
+        user_image = req.body.image;
 
     db.Users.update({
         name: user_name,
