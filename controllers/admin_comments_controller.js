@@ -7,8 +7,8 @@ router.delete('/comments/:id', (req, res) => {
     db.Comments.destroy({
         where: { id: req.params.id }
     }).then(
-        deleteSuccess = (commentid) => {
-            res.status(200).send("comment was removed");
+        deleteSuccess = (data) => {
+            res.status(200).json(data);
         },
         deleteError = (err) => {
             res.status(500).send(err.message);
