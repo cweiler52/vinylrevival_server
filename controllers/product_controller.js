@@ -3,10 +3,10 @@ const router = express.Router();
 const db = require('../db').db;
 
 /* GETS ALL PRODUCTS TO DISPLAY IN LIST /// ORDER BY later */
-router.get('/products', (req, res) => {
+router.get('/products/:sort', (req, res) => {
     db.Products.findAll({
         order: [
-            ['album', 'ASC']
+            [req.params.sort, 'ASC']
         ],
         include: [
             { model: db.Favs }//,
